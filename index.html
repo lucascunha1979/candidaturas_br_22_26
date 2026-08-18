@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidaturas 2022 × 2026</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Candidaturas — Eleições 2022 × 2026</h1>
+  <p>Distribuição territorial, partidária e por cargo</p>
+</header>
+<div class="toolbar">
+  <div class="control"><label>UF</label><select id="ufFilter"></select></div>
+  <div class="control"><label>Cargo</label><select id="cargoFilter"></select></div>
+  <div class="control"><label>Partido</label><select id="partyFilter"></select></div>
+  <div class="control">
+    <label>Métrica</label>
+    <select id="mapMetric">
+      <option value="diff">Diferença absoluta</option>
+      <option value="pct">Variação percentual</option>
+      <option value="2026">Total 2026</option>
+      <option value="2022">Total 2022</option>
+    </select>
+  </div>
+  <button id="resetButton">Limpar filtros</button>
+  <button id="pdfButton" class="primary">Baixar PDF</button>
+  <span id="pdfStatus"></span>
+</div>
+<main id="report">
+  <div id="selection" class="selection"></div>
+  <section class="cards">
+    <div class="card"><div class="label">Candidaturas 2022</div><div id="v22" class="value">—</div></div>
+    <div class="card"><div class="label">Candidaturas 2026</div><div id="v26" class="value">—</div></div>
+    <div class="card"><div class="label">Diferença 2026 − 2022</div><div id="vdiff" class="value">—</div></div>
+    <div class="card"><div class="label">Variação percentual</div><div id="vpct" class="value">—</div><div id="partWhole" class="small"></div></div>
+  </section>
+  <section class="grid">
+    <div class="panel">
+      <h2>Mapa coroplético</h2>
+      <div id="mapContext" class="context"></div>
+      <div class="hint">Clique em uma UF para filtrar todo o painel.</div>
+      <div id="map"></div>
+    </div>
+    <div class="panel">
+      <h2>Ranking de partidos</h2>
+      <div id="rankingContext" class="context"></div>
+      <div class="hint">Quando a métrica é 2022 ou 2026, o gráfico mostra duas barras. Quando a métrica é Diferença ou Variação %, mostra uma barra por partido.</div>
+      <div id="rankingChartWrap"><div id="rankingChart"></div></div>
+    </div>
+  </section>
+  <section class="panel full">
+    <h2>Comparação por Unidade da Federação</h2>
+    <div id="tableContext" class="context"></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>UF</th><th>Estado</th><th>2022</th><th>2026</th><th>Diferença</th><th>Variação</th></tr></thead>
+        <tbody id="ufBody"></tbody>
+      </table>
+    </div>
+  </section>
+  <section id="notes" class="panel notes full"></section>
+  <footer>Painel comparativo de candidaturas eleitorais. Os valores de 2026 correspondem ao estado da base utilizada na geração deste painel.</footer>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>
